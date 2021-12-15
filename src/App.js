@@ -15,12 +15,15 @@ class App extends Component {
   }
 
   handleChange = () => {
-    // const { villagerData } = this.state
+    const { villagerData } = this.state
 
-    // store it's length and do random 
-    // Consider Object.values / Object.entries
+    //Get the length of the data and find a random ID
+    const selectedID = Math.floor(Math.random() * Object.entries(villagerData).length)
 
-    this.setState({currentVillager: "some random villager obj"})
+    // Select the object with the given random ID
+    const currentVillagerName = Object.entries(villagerData).find((element) => selectedID === element[1].id)[0]
+
+    this.setState({currentVillager: villagerData[currentVillagerName]})
   }
 
   handleAdd = () => {
@@ -38,6 +41,12 @@ class App extends Component {
 
   render() {
     const { villagers, currentVillager } = this.state
+    // console.log(Object.entries(villagerData)[1][1])
+    //   const selectedID = Math.floor(Math.random() * Object.entries(villagerData).length)
+
+    //   console.log(selectedID)
+
+    // console.log(Object.entries(villagerData).find((element) => selectedID === element[1].id))
 
     return (
       <div className="App">
