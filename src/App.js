@@ -10,17 +10,18 @@ class App extends Component {
       // no need to use data as a state for now, but this one will change when we use an API
       villagerData: villagerData,
       villagers: [],
-      currentVillager: villagerData.ant00
+      currentVillager: villagerData.ant00,
+      showVillage: true
     };
   }
 
   handleChange = () => {
     const { villagerData } = this.state
 
-    //Get the length of the data and find a random ID
+    //Get the length of the data and find a random ID via Object keys
     const selectedID = Math.floor(Math.random() * Object.keys(villagerData).length)
 
-    // Select the object with the given random ID
+    // Select the object with the given random ID via index/bracket notation of an array of villagerData object values
     const currentVillager = Object.values(villagerData)[selectedID]
 
     this.setState({currentVillager: currentVillager})
@@ -38,8 +39,14 @@ class App extends Component {
     })
   }
 
+  toggleVillageHiding = () => {
+    const {showVillage} = this.state
+    this.setState({showVillage: !showVillage})  
+  }
+
   render() {
-    const { villagers, currentVillager } = this.state
+    const { villagers, currentVillager, showVillage } = this.state
+    const names = villagers.map((villager) => <p key={villager.id} >{villager.name["name-USen"]}</p>)
 
     return (
       <div className="App">
@@ -50,7 +57,8 @@ class App extends Component {
           <button onClick={this.handleClear}>Clear Village</button>
           <div>Current Villager: {currentVillager.name["name-USen"]}</div>
           <div>Total Villagers in Village: {villagers.length}</div>
-          <div className="villager-grid"></div>
+          <button onClick={this.toggleVillageHiding}>Show/Hide Village</button>
+          <div className="villager-grid">{showVillage && names}</div>
         </div>
       </div>
     );
