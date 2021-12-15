@@ -8,7 +8,7 @@ class App extends Component {
 
     this.state = {
       // no need to use data as a state for now, but this one will change when we use an API
-      villagerData: villagerData,
+      villagerData: {},
       villagers: [],
       currentVillager: villagerData.ant00,
       showVillage: true
@@ -42,6 +42,14 @@ class App extends Component {
   toggleVillageHiding = () => {
     const {showVillage} = this.state
     this.setState({showVillage: !showVillage})  
+  }
+
+  //to grab data from API
+  // http://acnhapi.com/doc#tag/Villagers
+  componentDidMount() {
+    fetch('https://acnhapi.com/v1/villagers')
+    .then((response) => response.json())
+    .then((villagers) => this.setState({villagerData: villagers}))
   }
 
   render() {
