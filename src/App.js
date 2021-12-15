@@ -9,7 +9,7 @@ class App extends Component {
     this.state = {
       // no need to use data as a state for now, but this one will change when we use an API
       villagerData: villagerData,
-      villagers: [villagerData.ant00],
+      villagers: [],
       currentVillager: villagerData.ant00
     };
   }
@@ -18,12 +18,12 @@ class App extends Component {
     const { villagerData } = this.state
 
     //Get the length of the data and find a random ID
-    const selectedID = Math.floor(Math.random() * Object.entries(villagerData).length)
+    const selectedID = Math.floor(Math.random() * Object.keys(villagerData).length)
 
     // Select the object with the given random ID
-    const currentVillagerName = Object.entries(villagerData).find((element) => selectedID === element[1].id)[0]
+    const currentVillager = Object.values(villagerData)[selectedID]
 
-    this.setState({currentVillager: villagerData[currentVillagerName]})
+    this.setState({currentVillager: currentVillager})
   }
 
   handleAdd = () => {
@@ -34,19 +34,12 @@ class App extends Component {
 
   handleClear = () => {
     this.setState({
-      villagers: [villagerData.ant00],
-      currentVillager: villagerData.ant00
+      villagers: [],
     })
   }
 
   render() {
     const { villagers, currentVillager } = this.state
-    // console.log(Object.entries(villagerData)[1][1])
-    //   const selectedID = Math.floor(Math.random() * Object.entries(villagerData).length)
-
-    //   console.log(selectedID)
-
-    // console.log(Object.entries(villagerData).find((element) => selectedID === element[1].id))
 
     return (
       <div className="App">
